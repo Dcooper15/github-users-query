@@ -1,12 +1,12 @@
 import React from 'react';
-import UserCardList from './components/UserCardList';
+import SearchForm from './components/SearchForm';
 
 
 
 function App() {
   return (
     <div className="App">
-      <UserCardList />
+      <SearchForm />
     </div>
   );
 }
