@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import UserCardList from "./UserCardList";
 
+import UserProfile from "./UserProfile";
 import {
-    BrowserRouter as Router,
     Link,
     Route,
-    Switch,
   } from 'react-router-dom';
 
 
@@ -48,7 +46,9 @@ class SearchForm extends Component {
         const { users } = this.state;
     return (
         <>
+            <Route exact path="/">
               <h1>Github Users</h1>
+            
             <form onSubmit={this._handleSubmit}>
             <label>Enter userName
                 <input type="text" onChange={(event) => this._handleChange(event.target.value)}/>
@@ -57,15 +57,21 @@ class SearchForm extends Component {
                 return (
                 
                   <p key={user.id}>
-                      {user.login} <img src={user.avatar_url}/>
+                    <Link to={`/users/${user.login}`}>{user.login}</Link> <img src={user.avatar_url}/>
                       
                   </p>
             
                 );
                 })}
+                
             
              <button type="submit">Add User</button>
             </form>
+            </Route>
+            <Route path="/users/:userName">
+                <UserProfile />
+            </Route>
+
         </>
       );
  };

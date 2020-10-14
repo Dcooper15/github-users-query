@@ -1,44 +1,52 @@
+import React, { useEffect, useState } from "react";
+import {
+    useParams
+  } from 'react-router-dom';
 
-// import {
-//     BrowserRouter as Router,
-//     Link,
-//     Route,
-//     Switch,
-//   } from 'react-router-dom';
-// import SearchForm from "./SearchForm";
+import { loadData } from "../utils/loadData";
 
 
 
 
-// const UserProfile = props => {
-//     props = this.state;
+const UserProfile = props => {
+    const users = props;
+    const { userName } = useParams();
+    const [repoData, setUsers] = useState([]);
+   
 
 
+    useEffect(() => {
+        (async function(){
+            const repoData = await loadData(
+                `https://api.github.com/users/${userName}/repos`);
+              setUsers(repoData);
+        })();
+    }, [setUsers, userName]);
 
-
-//     return (
-//         <>
-//         <SearchForm />
-//         <Route path="/user">
-//         {users.map((user) => {
-//             <ul>
-//                 return (
-//                   <li key={user.id}> </li>
-//                    <li>{user.login} </li>  
-//                    <li><img src={user.avatar_url}/></li>
-                      
-                  
-//                 );
-//             </ul>
-//                 })}
+    return (
+        <>
+        
+        
+        {repoData.map((repo) => {
+            
+                return (
+            
+                    <li key={repo.id}>{repo.name}</li>
+                   
+                 
+                
+                );
+            
+                })}
+            
          
-//         </Route>
+        
 
-//         </>
-//     )
-// }
-
-
+        </>
+    )
+}
 
 
-// export default UserProfile;
+
+
+export default UserProfile;
